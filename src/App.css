@@ -1,6 +1,6 @@
 @font-face {
   font-family: Blonde;
-  src: url(../public/font.ttf);
+  src: url(./public/font.ttf);
 }
 body {
   margin: 0;
@@ -90,6 +90,7 @@ h1:hover {
     text-align: center;
   }
   .audio {
-padding-left: 0;
+    padding-left: 0;
+    background-image: url(./);
   }
 }

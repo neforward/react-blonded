@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import './App.css'
 
 function App() {
@@ -77,56 +76,6 @@ function App() {
       AudioURL: '../public/17FuturaFree.mp3'
     },
   ]
-  useEffect(() => {
-    const cards = document.querySelectorAll('.card');
-
-    cards.forEach((element) => {
-      const setDuration = window.getComputedStyle(element).getPropertyValue('--animationDuration');
-      element.style.setProperty('--animationDuration', `0ms`);
-      document.addEventListener('DOMContentLoaded', () => {
-        setTimeout(() => {
-          element.style.setProperty('--animationDuration', setDuration);
-        }, parseInt(setDuration));
-      });
-
-      element.addEventListener('mouseenter', function (event) {
-        element.addEventListener('mousemove', (event) => calculateDistance(event, element));
-      });
-
-      element.addEventListener('mouseleave', function (event) {
-        element.removeEventListener('mousemove', calculateDistance);
-      });
-    });
-
-    function calculateDistance(event, element) {
-      const rect = element.getBoundingClientRect(),
-        baseSwivelValue = parseInt(getComputedStyle(element).getPropertyValue("--maxSwivel")),
-        maxBrightness = parseInt(getComputedStyle(element).getPropertyValue("--maxBrightness")),
-        maxSwivel = baseSwivelValue ? baseSwivelValue : 25,
-        height = rect.height,
-        width = rect.width,
-        centerX = rect.left + width / 2,
-        centerY = rect.top + height / 2,
-        swivelMultiplierY = maxSwivel / (height / 2),
-        swivelMultiplierX = maxSwivel / (width / 2),
-        mouseX = event.clientX,
-        mouseY = event.clientY,
-        distanceX = mouseX - centerX,
-        distanceY = mouseY - centerY;
-
-      const normalizedDistanceY = (distanceY / (height / 2)),
-        normalizedDistanceX = (distanceX / (height / 2));
-
-      const shadowX = 25 * normalizedDistanceX,
-        shadowY = normalizedDistanceY < 0 ? -20 * normalizedDistanceY : -5 * normalizedDistanceY;
-
-      element.style.setProperty('--brightness', `${maxBrightness * (normalizedDistanceY * -1) + 100}%`);
-      element.style.setProperty('--swivelY', `${swivelMultiplierY * distanceY}deg`);
-      element.style.setProperty('--swivelX', `${swivelMultiplierX * distanceX}deg`);
-      element.style.setProperty('--shadowX', `${shadowX}px`);
-      element.style.setProperty('--shadowY', `${shadowY}px`);
-    }
-  }, []);
   return (
     <>
       <header className="header">
